@@ -27,8 +27,9 @@ a{
 }
 
 #logo-img{
-    width: 4em;
-    height: 4em
+    width: 2.7em;
+    height: 2.7em;
+    margin-top: 10px;
 }
 
 #searchbar{
@@ -43,7 +44,8 @@ a{
 
 #profile-img{
     width: 2.5em;
-    height: 2.5em
+    height: 2.5em;
+    margin-top: 10px;
 }
 
 /* HERO SECTION */
