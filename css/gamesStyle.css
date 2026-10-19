@@ -1,0 +1,22 @@
+.game-card-container{
+    display: flex;
+    overflow-x: scroll;
+    gap: 24px;
+    padding: 20px;
+}
+
+.game-card-container::-webkit-scrollbar {
+  display: none;
+}
+
+.game-card h2{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+.game-cover{
+    width: 15em;
+    height: 12em;
+    border-radius: 20px;
+}

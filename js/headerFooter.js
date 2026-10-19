@@ -1,10 +1,11 @@
 const header = document.querySelector("header");
 const footer = document.querySelector("footer");
+const hero = document.querySelector(".hero-section");
 
 const pages = [
 
     {   name: "Games",
-        path: "index.html"
+        path: "index.html",
     },
 
     {
