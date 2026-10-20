@@ -29,9 +29,15 @@ header.innerHTML=
 `
     <img src="./images/logo.png" id="logo-img">
 
-    <form>
-    <input type="text" id="searchbar" name="searchbar" placeholder="Search..." >
-    </form>
+    <div class="search-area">
+        <form>
+        <input type="text" class="searchbar" name="searchbar" placeholder="Search..." >
+        </form>
+        
+        <div class="results">
+        <h1>Results:</h1>
+        </div>
+    </div>
 `
 
 pages.forEach((page) => {

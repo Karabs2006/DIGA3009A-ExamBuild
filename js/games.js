@@ -4,17 +4,21 @@ const gamesUrl = `https://api.rawg.io/api/games?key=${apiKey}`;
 const container = document.querySelector("#must-plays-container");
 const suggestContainer = document.querySelector("#suggestions-container");
 
+const searchbar = document.querySelector(".searchbar");
+const resultsContainer = document.querySelector(".results");
+//const resultsHeading = document.querySelector("h1.results");
+
 const suggestionTerms = [
     "gears-of-war-2",
     "sleeping-dogs",
     "burnout-paradise",
-    "the-walking-dead-season-two",
+    "the-walking-dead-season-2",
     "forza-horizon-5",
     "assassins-creed-mirage",
     "control",
     "shadow-of-the-tomb-raider",
     "south-park-the-fractured-but-whole",
-    "it-takes-two",
+    "saints-row-the-third",
     "evil-west",
     "rayman-origins",
     "need-for-speed-unbound",
@@ -103,40 +107,6 @@ const fetchKey = async() => {
         container.appendChild(card);
     },
 
-    /*
-    suggestionTerms.forEach((suggestion) =>{
-
-        if(data.results.name == suggestion)
-        {
-           
-            data.results.forEach((game)=>
-            {
-                const card = document.createElement("div");
-
-                card.classList.add("game-card");
-
-                card.innerHTML =
-                `
-                    <img src="${game.background_image}" class="game-cover">
-                    <h2>${game.name}</h2>
-                    <p><strong>Metacritic: </strong>${game.metacritic} </p>
-                    <p><strong>Released: </strong>${game.released}</p>
-                    <p><strong>Genre: </strong>${game.genres[0]}</p>
-
-                `
-                suggestContainer.appendChild(card);
-
-            });
-
-        }
-    
-
-    })
-
-    */
-
-
-
 );
 
 
@@ -149,6 +119,66 @@ const fetchKey = async() => {
 
 }
 
+
+const searchGame = async(url)=>{
+
+    const searchUrl = url
+    const res = await fetch(url, {
+
+        headers:{
+
+            Accept: "application/json",
+            "User-Agent": "API Practice"
+        
+        }
+        });
+
+        const data = await res.json();
+        console.log(data);
+
+        data.results.forEach((game) => {
+       
+        const card = document.createElement("div");
+
+        card.classList.add("results-card");
+
+        card.innerHTML =
+        `
+            <img src="${game.background_image}" class="game-cover">
+            <div class ="results-game-info">
+                <h2>${game.name}</h2>
+                <p><strong>Metacritic: </strong>${game.metacritic} </p>
+                <p><strong>Released: </strong>${game.released}</p>
+                <p><strong>Genre: </strong>${game.genres[0]}</p>
+            </div>
+
+        `
+        resultsContainer.appendChild(card);
+    
+    });
+
+        
+
+    
+}
+
+
+searchbar.addEventListener("keydown", (event) => {
+
+    if (event.key === "Enter") {
+
+        event.preventDefault();
+        console.log(searchbar.value);
+        resultsContainer.textContent = ""; 
+
+        let searchTermUrl = `https://api.rawg.io/api/games?key=${apiKey}&search=${searchbar.value}`
+
+        searchGame(searchTermUrl);
+
+        
+    }
+    
+});
 
 fetchKey();
 fetchSuggestions();
