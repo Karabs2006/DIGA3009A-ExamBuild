@@ -1,3 +1,10 @@
+#games-hero{
+    background-image: url("../images/games-hero-img.jpg");
+    background-position: 50% 0%;
+    background-size: 105%;
+}
+
+
 .game-card-container{
     display: flex;
     overflow-x: scroll;

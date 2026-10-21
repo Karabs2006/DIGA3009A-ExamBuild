@@ -74,13 +74,9 @@ a{
     align-items: center;      
     justify-content: flex-start; 
     padding-left: 15px;
+    margin-bottom: 20px;
 }
 
-#games-hero{
-    background-image: url("../images/games-hero-img.jpg");
-    background-position: 50% 0%;
-    background-size: 105%;
-}
 
 h1
 {
@@ -93,13 +89,15 @@ h1
 footer
 {   
     display: flex;
-    padding-top: 70px;
-    padding-bottom: 70px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 70px 50px 70px 50px;
     width: 100%;
     background-color: black;
     color: aliceblue;
 
 }
+
 .back-btn{
     border-style: none;
     padding: 20px;
@@ -108,4 +106,9 @@ footer
     background-color: magenta;
     color: aliceblue;
     
+}
+
+.socials-section img{
+    width: 2em;
+    height: 2em;
 }

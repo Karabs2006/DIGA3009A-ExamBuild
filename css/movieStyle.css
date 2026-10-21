@@ -1,0 +1,42 @@
+#movies-hero{
+    background-image: url(../images/movies-hero-img.jpg);
+    background-position: 50% 0%;
+    background-size: 105%;
+}
+
+.movie-card-container{
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;     /* Hides scrollbar in Firefox */
+    -ms-overflow-style: none;
+}
+
+.poster img{
+
+    border-radius: 20px;
+    width: 10em;
+    margin: 20px;
+
+}
+
+.results-card{
+    display: flex;
+    align-items: center;
+    margin:20px
+}
+
+.results-info{
+    padding: 16px;
+}
+
+
+.results-info p{
+    margin-top: 10px;
+}
+
+
+
+.results-poster{
+    height: 20em;
+    border-radius: 10px;
+}

@@ -2,32 +2,41 @@ const header = document.querySelector("header");
 const footer = document.querySelector("footer");
 const hero = document.querySelector(".hero-section");
 
+
 const pages = [
 
     {   name: "Games",
-        path: "index.html",
+        path: ".././index.html",
     },
 
     {
         name: "Movies/TV",
-        path: "./html/movies.html"
+        path: "movies.html"
     },
 
     {
         name: "Music",
-        path: "./html/music.html"
+        path: "music.html"
     },
 
     {
         name: "kb's 2026",
-        path: "./html/recap.html"
+        path: "recap.html"
     },
     
 ];
 
+const socialImages = [
+
+    "../images/twitter.jpg",
+    "../images/instagram.png",
+    "../images/xbox.png",
+    "../images/github.png",
+]
+
 header.innerHTML=
 `
-    <img src="./images/logo.png" id="logo-img">
+    <img src="../images/logo.png" id="logo-img">
 
     <div class="search-area">
         <form>
@@ -52,7 +61,7 @@ pages.forEach((page) => {
 header.innerHTML +=
 `
     <a href="./html/user.html">
-    <img src="./images/profile.png" id="profile-img">
+    <img src="../images/profile.png" id="profile-img">
     </a>
 `
 
@@ -73,5 +82,19 @@ footer.innerHTML =
 Back To Top
 </button>
 
+<div class="socials-section">
+
+</div>
+
 `
+
+const socialContainer = document.querySelector(".socials-section");
+
+socialImages.forEach((image)=>{
+
+    socialContainer.innerHTML +=
+    `
+    <img src="${image}">
+    `
+})
 
