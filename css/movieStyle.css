@@ -1,3 +1,8 @@
+:root {
+    --rating-color: #d21111;
+}
+
+
 #movies-hero{
     background-image: url(../images/movies-hero-img.jpg);
     background-position: 50% 0%;
@@ -22,11 +27,11 @@
 .results-card{
     display: flex;
     align-items: center;
-    margin:20px
+    margin:20px;
 }
 
 .results-info{
-    padding: 16px;
+    padding: 20px;
 }
 
 
@@ -40,3 +45,31 @@
     height: 20em;
     border-radius: 10px;
 }
+
+.imdb-rating{
+    padding: 0.5em;
+    border-radius: 10px;
+    background-color: var(--rating-color);
+}
+
+.user-buttons{
+}
+
+.bi-heart{
+    width: 2em;
+    height: 4em;
+    fill:magenta
+}
+
+.bi-plus{
+    width: 5em;
+    height: 4em;
+    fill:rgb(0, 187, 255)
+}
+
+.bi-bookmark{
+    width: 2em;
+    height: 4em;
+    fill:rgb(255, 153, 0)
+}
+
