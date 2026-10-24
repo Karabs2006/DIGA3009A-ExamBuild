@@ -1,0 +1,10 @@
+#music-hero{
+    background-image: url(../images/music-hero-img.jpg);
+    background-position: 50% 10%;
+    background-size: 105%;
+}
+
+#music-hero h1{
+    color: rgb(255, 115, 0);
+    font-size: 100px;
+}
