@@ -8,3 +8,54 @@
     color: rgb(255, 115, 0);
     font-size: 100px;
 }
+
+.song-card-container{
+    
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, auto);
+    grid-auto-columns: max-content;
+    overflow-x: auto;
+
+
+}
+
+.song-card{
+
+    display: flex;
+    gap:24px;
+    padding: 20px;
+    background-color: black;
+    border-radius: 20px;
+    margin: 20px;
+    width: 100%;
+    height: 6em;
+}
+
+.album-artwork{
+    border-radius: 10px;
+}
+
+.user-buttons{
+    width: 6em;
+    height: 2em;
+    display: flex;
+    margin-left: auto;
+}
+.bi-heart{
+    width: 2em;
+    height: 4em;
+    fill:magenta
+}
+
+.bi-plus{
+    width: 4em;
+    height: 4em;
+    fill:rgb(0, 187, 255)
+}
+
+.bi-bookmark{
+    width: 2em;
+    height: 4em;
+    fill:rgb(255, 153, 0)
+}
