@@ -1,0 +1,9 @@
+#profile-hero{
+    display: flex;
+    justify-content: space-between;
+}
+
+#profile-hero img{
+    width: 20em;
+    height: 20em;
+}

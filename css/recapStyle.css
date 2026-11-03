@@ -1,0 +1,10 @@
+#recap-hero{
+    background-image: url(../images/recap-hero-img.jpg);
+    background-position: 10% 10%;
+    background-size: 105%;
+}
+
+#recap-hero h1{
+    color: rgb(255, 0, 217);
+    font-size: 100px;
+}
