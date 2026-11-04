@@ -19,8 +19,9 @@
 .poster img{
 
     border-radius: 20px;
-    width: 10em;
+    width: 170px;
     margin: 20px;
+    flex-shrink: 0;
 
 }
 
@@ -53,23 +54,51 @@
 }
 
 .user-buttons{
+    display: flex;
 }
 
 .bi-heart{
-    width: 2em;
+    width: 1.6em;
     height: 4em;
     fill:magenta
 }
 
 .bi-plus{
-    width: 5em;
+    width: 3em;
     height: 4em;
     fill:rgb(0, 187, 255)
 }
 
 .bi-bookmark{
-    width: 2em;
+    width: 1.6em;
     height: 4em;
     fill:rgb(255, 153, 0)
 }
+
+.extra-info h2{
+    margin-bottom: 10px; 
+    color: #1c1c1c;
+}
+
+.extra-info{
+    width: 20em;
+    max-height: 17em;
+    flex-shrink: 0;
+    background-color: aliceblue;
+    border-radius: 20px;
+    padding: 10px
+    ;
+}
+.extra-info p{
+    margin-bottom: 10px;
+    color: #1c1c1c;
+}
+
+.poster {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 20px;
+}
+
 
