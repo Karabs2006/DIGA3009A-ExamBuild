@@ -43,9 +43,29 @@ header.innerHTML=
         <input type="text" class="searchbar" name="searchbar" placeholder="Search..." >
         </form>
         
-        <div class="results">
-        <h1>Results:</h1>
+        <div class="results-head">
+            <h1 class="results-text">Results:</h1>
+            <button type="button">Clear</button>
         </div>
+        <div class="results">
+        
+        </div>
+
+         <div class="loading-bar">
+
+                <svg>
+                    <circle class ="loading-circle" cx="50" cy="50" r="40" />
+                </svg>
+
+                <svg>
+                    <circle class ="loading-circle" cx="50" cy="50" r="40"  />
+                </svg>
+
+                <svg>
+                    <circle class ="loading-circle" cx="50" cy="50" r="40"  />
+                </svg>
+
+            </div>
     </div>
 `
 

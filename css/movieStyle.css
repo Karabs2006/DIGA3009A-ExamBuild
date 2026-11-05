@@ -84,21 +84,34 @@
     width: 20em;
     max-height: 17em;
     flex-shrink: 0;
-    background-color: aliceblue;
+    background-color: #FAFAFA;
     border-radius: 20px;
-    padding: 10px
-    ;
+    padding: 20px;
+
 }
 .extra-info p{
     margin-bottom: 10px;
-    color: #1c1c1c;
+    color: #363636;
 }
 
+.text{
+    color: #363636 ;
+}
 .poster {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: 20px;
+    margin: 5px;
 }
+
+.imdb-rating-static{
+
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    align-items: center;
+    background-color: var(--rating-color);
+}
+
 
 

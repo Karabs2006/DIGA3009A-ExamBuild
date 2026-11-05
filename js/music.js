@@ -1,8 +1,13 @@
 const searchbar = document.querySelector(".searchbar");
 const resultsContainer = document.querySelector(".results");
+const resultsText = document.querySelector(".results-head");
 
 const essentialsContainer = document.querySelector("#essentials-container");
 const trendingContainer = document.querySelector("#trending-container");
+
+const loadingBubbles = document.querySelectorAll(".loading-circle");
+const loadingBar = document.querySelector(".loading-bar");
+
 
 const essentialSongs = [
 
@@ -34,6 +39,17 @@ const trendingSongs = [
 
 ];
 
+const loadingTimeline = gsap.to(loadingBubbles, {
+
+    fill: "#FAFAFA",
+    scale: 1.1,
+    stagger: 0.1,
+    duration: 0.2,
+    repeat : -1,
+    yoyo: true,
+    paused: true
+})
+
 if(searchbar){
     searchbar.addEventListener("keydown", (event) => {
 
@@ -41,8 +57,10 @@ if(searchbar){
 
             event.preventDefault();
             console.log(searchbar.value);
-            resultsContainer.textContent = ""; 
-
+            resultsContainer.textContent = "";
+            loadingBar.style.display = "flex";
+            
+            
             let searchTermUrl = `https://itunes.apple.com/search?term=${searchbar.value}&entity=song`
             search(searchTermUrl);
 
@@ -52,6 +70,10 @@ if(searchbar){
 }
 
 const search = async(url) =>{
+
+    loadingTimeline.play();
+    resultsText.style.display ="none";
+
     try{ 
         const res = await fetch (url, {
 
@@ -59,6 +81,7 @@ const search = async(url) =>{
                 Accept: "application/json",
                 "User-Agent":"API Practice"
             }
+
         })
 
         const data = await res.json();
@@ -73,6 +96,12 @@ const search = async(url) =>{
 
     catch(error){
         console.log(error)
+    }
+
+    finally {
+        loadingTimeline.pause(0);
+        loadingBar.style.display = "none";
+        resultsText.style.display ="flex";
     }
 }
 
@@ -108,6 +137,57 @@ function createCards(song, container){
                 </div>
             
             `
+            //AUDIO
+
+            const audio = new Audio(song.previewUrl);
+            
+
+            //GSAP ANIMATIONS
+
+            const songInfo = card.querySelector(".song-info");
+
+            const tl = gsap.timeline();
+
+            card.addEventListener("mouseenter",()=> {
+
+                audio.volume = 0;
+                audio.play();
+                
+                gsap.to(audio, {
+                    volume: 1,
+                    duration: 4
+
+                })
+
+                gsap.to(card, {
+                    scale: 1.02,
+                    duration: 0.5,
+                    backgroundColor: "#FAFAFA",
+                    
+                })
+                
+            });
+
+            card.addEventListener("mouseleave",()=> {
+
+                gsap.to(audio, {
+                    volume: 0,
+                    duration: 0.4,
+                     onComplete: () => {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    }
+
+                })
+                
+                gsap.to(card, {
+                    scale: 1,
+                    duration: 0.5,
+                    backgroundColor: "#121212",
+                })
+            })
+
+          
 
             const saveButton = card.querySelector(".save-button");
 

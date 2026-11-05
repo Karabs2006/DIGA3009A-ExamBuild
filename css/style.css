@@ -38,10 +38,40 @@ a{
     border-radius: 40px;
     width: 30rem;
     background-color: rgb(65, 65, 65);
-    color: aliceblue
-    ;
+    color: aliceblue;
 }
 
+.loading-bar{
+    display: none;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.loading-circle{
+    fill: #121212;
+}
+
+.loading-bar{
+    width: 25rem;
+}
+
+.results-head {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.results-head button{
+  
+    height: 4em;
+    width: 6em;
+    border-radius: 10px;
+    border-style: none;
+    background-color: #d21111;
+    margin: 20px;
+}
 /*
 .search-area
 {

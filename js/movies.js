@@ -136,9 +136,6 @@ const uniqueSearch = async(idUrl) =>{
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
                 </svg>
 
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
-                </svg>
 
                 </div>
             `
@@ -243,10 +240,46 @@ export const fetchResults = async(list, container)=>{
 
 
         card.innerHTML =
-        `
+        `   
             <img src ="${data.Poster}" class="poster-click">
-
+    
         `
+        //GSAP ANIMATIONS
+
+            const img = card.querySelector(".poster-click");
+
+            img.addEventListener("mouseenter", ()=>{
+
+                gsap.to(img,
+                    {   
+                        scale: 1.04,
+                        //ease: "power2.inOut"
+                    }
+                )
+            })
+
+            img.addEventListener("mouseleave", ()=>{
+
+                gsap.to(img,
+                    {   
+                        scale: 1,
+                        //ease: "power2.inOut"
+                    }
+                )
+            });
+
+            img.addEventListener("click", ()=>{
+
+                gsap.to(img,
+                    {   
+                        scale: 0.8,
+                        //ease: "power2.inOut"
+                    }
+                )
+            });
+
+            
+            
 
         let isClicked = false;
         const posterBtn = card.querySelector(".poster-click");
@@ -265,7 +298,7 @@ export const fetchResults = async(list, container)=>{
                 `
                     <h2>${data.Title}</h2>
                     <p>${data.Plot}</p>
-                    <p><i>imdb Rating:</i> ${data.imdbRating}</p>
+                    <p><i><span class="text">imdb Rating:</span></i><span class="imdb-rating-static"> ${data.imdbRating}</span></p>
 
                     <div class="user-buttons">
 
@@ -276,12 +309,26 @@ export const fetchResults = async(list, container)=>{
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus " viewBox="0 0 16 16">
                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
                         </svg>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
-                        </svg>
                     </div>
                 `
+
+                
+                //let criteria = `${Number(item.imdbRating)}>=${condition.min}&&${Number(item.imdbRating)}<=${condition.max}`
+                
+                const ratingElement = extraInfo.querySelector(".imdb-rating-static");
+                conditions.forEach((condition)=>{
+
+                    if(Number(data.imdbRating) >= condition.min && Number(data.imdbRating) <= condition.max){
+                        {
+                            ratingElement.style.setProperty
+                            (
+                                "--rating-color",
+                                condition.color
+                            );
+                        }
+                    }
+                })
+                    
 
 
                     card.appendChild(extraInfo);
