@@ -65,16 +65,27 @@ header.innerHTML=
                     <circle class ="loading-circle" cx="50" cy="50" r="40"  />
                 </svg>
 
-            </div>
+        </div>
     </div>
 `
 
 pages.forEach((page) => {
 
     header.innerHTML += `
+        <div class="nav-area">
         <li class="nav-list">
             <a href="${page.path}">${page.name}</a>
         </li>
+        <svg>
+                <path
+                    class="nav-line"
+                    d="M20 50 L60 50"
+                    stroke-dasharray="300" 
+                    stroke-dashoffset="0"
+                />
+        </svg>
+        </div>
+
     `;
 });
 
@@ -116,5 +127,33 @@ socialImages.forEach((image)=>{
     `
     <img src="${image}">
     `
+})
+
+//CLEAR BUTTON IMPLEMENTAION PER PAGE
+const backBtn = document.querySelector(".results-head button");
+const resultsContainer = document.querySelector(".results");
+const resultsText = document.querySelector(".results-head");
+
+//CLEAR BUTTON EMPTIES RESULTS AREA ON CLICK
+backBtn.addEventListener("click",()=>{
+
+    resultsContainer.textContent = "";
+    resultsText.style.display ="none";
+
+})
+
+backBtn.addEventListener("mouseenter",()=>{
+
+    gsap.to(backBtn, {
+        scale: 1.1,
+        duration: 0.2,       
+    })
+})
+
+backBtn.addEventListener("mouseleave",()=>{
+
+    gsap.to(backBtn, {
+        scale: 1
+    })
 })
 

@@ -72,6 +72,20 @@ a{
     background-color: #d21111;
     margin: 20px;
 }
+
+.results-head button:hover{
+  
+    cursor: pointer;
+}
+
+.nav-line{
+    stroke: red;
+}
+
+.nav-area{
+    width: 0;
+    padding: 0;
+}
 /*
 .search-area
 {

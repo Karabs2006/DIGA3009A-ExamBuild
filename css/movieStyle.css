@@ -24,7 +24,9 @@
     flex-shrink: 0;
 
 }
-
+.poster:hover{
+    cursor: pointer;
+}
 .results-card{
     display: flex;
     align-items: center;

@@ -8,3 +8,7 @@
     color: rgb(255, 0, 217);
     font-size: 100px;
 }
+
+.searchbar{
+    display: none;
+}

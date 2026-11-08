@@ -227,6 +227,8 @@ export const fetchArtists = async(list, container) =>{
         const data = await res.json();
         //console.log(data.results[0]);
 
+        if (!data.results.length) return;
+
         //Compile list of the artist ID's
         artistIds.push(data.results[0].artistId);
 
@@ -244,7 +246,9 @@ export const fetchArtists = async(list, container) =>{
             );
 
             //METHOD
-            createCards(matchedSong, container);
+            if (matchedSong){
+                createCards(matchedSong, container);
+            }
 
     console.log(matchedSong);
 

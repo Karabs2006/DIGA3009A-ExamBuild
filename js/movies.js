@@ -1,5 +1,5 @@
 const apiKey = "4fcc086a";
-const mainUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=power+rangers`;
+const mainUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=power+rangers`;
 
 const moviesContainer = document.querySelector("#movie-container");
 const seriesContainer = document.querySelector("#series-container");
@@ -16,7 +16,7 @@ searchbar.addEventListener("keydown", (event) => {
         console.log(searchbar.value);
         resultsContainer.textContent = ""; 
 
-        let searchTermUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchbar.value}`
+        let searchTermUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=${searchbar.value}`
 
         search(searchTermUrl)
     }
@@ -219,7 +219,7 @@ export const fetchResults = async(list, container)=>{
 
         list.forEach(async(element) => {
 
-        const searchUrl = `http://www.omdbapi.com/?apikey=${apiKey}&t=${element}`;
+        const searchUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${element}`;
 
         const res = await fetch(searchUrl, {
 
@@ -370,8 +370,9 @@ export const fetchResults = async(list, container)=>{
 
 }
 
-fetchResults(movieTerms, moviesContainer);
-fetchResults(seriesTerms, seriesContainer);
-fetchResults(suggestionTerms, suggestContainer);
+
+    fetchResults(movieTerms, moviesContainer);
+    fetchResults(seriesTerms, seriesContainer);
+    fetchResults(suggestionTerms, suggestContainer);
 
 
