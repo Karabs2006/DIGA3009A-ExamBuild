@@ -4,6 +4,7 @@
     background-image: url("../images/games-hero-img.jpg");
     background-position: 50% 0%;
     background-size: 105%;
+    background-repeat: no-repeat;
 }
 
 

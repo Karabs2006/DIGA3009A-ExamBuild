@@ -120,7 +120,7 @@ const fetchKey = async() => {
 }
 
 
-const searchGame = async(url)=>{
+const search = async(url)=>{
 
     const searchUrl = url
     const res = await fetch(url, {
@@ -173,9 +173,8 @@ searchbar.addEventListener("keydown", (event) => {
 
         let searchTermUrl = `https://api.rawg.io/api/games?key=${apiKey}&search=${searchbar.value}`
 
-        searchGame(searchTermUrl);
+        search(searchTermUrl);
 
-        
     }
     
 });

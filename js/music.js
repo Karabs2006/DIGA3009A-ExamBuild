@@ -8,6 +8,8 @@ const trendingContainer = document.querySelector("#trending-container");
 const loadingBubbles = document.querySelectorAll(".loading-circle");
 const loadingBar = document.querySelector(".loading-bar");
 
+import { createTimeline } from "./headerFooter.js";
+import { createSearch } from "./headerFooter.js";
 
 const essentialSongs = [
 
@@ -39,18 +41,9 @@ const trendingSongs = [
 
 ];
 
-const loadingTimeline = gsap.to(loadingBubbles, {
+const loadingTimeline = createTimeline(loadingBubbles);
 
-    fill: "#FAFAFA",
-    scale: 1.1,
-    stagger: 0.1,
-    duration: 0.2,
-    repeat : -1,
-    yoyo: true,
-    paused: true
-})
-
-if(searchbar){
+/*if(searchbar){
     searchbar.addEventListener("keydown", (event) => {
 
         if (event.key === "Enter") {
@@ -68,6 +61,8 @@ if(searchbar){
         
     });
 }
+*/
+
 
 const search = async(url) =>{
 
@@ -104,6 +99,8 @@ const search = async(url) =>{
         resultsText.style.display ="flex";
     }
 }
+
+createSearch(searchbar,search(`https://itunes.apple.com/search?term=${searchbar.value}&entity=song`));
 
 let artistIds = [];
 

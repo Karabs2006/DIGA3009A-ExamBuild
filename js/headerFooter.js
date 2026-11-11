@@ -7,21 +7,25 @@ const pages = [
 
     {   name: "Games",
         path: ".././index.html",
+        color: "#0BA3FF"
     },
 
     {
         name: "Movies/TV",
-        path: "movies.html"
+        path: "movies.html",
+        color: "#FFEF00",
     },
 
     {
         name: "Music",
-        path: "music.html"
+        path: "music.html",
+        color: "#E0115F"
     },
 
     {
         name: "kb's 2026",
-        path: "recap.html"
+        path: "recap.html",
+        color: "#89f336"
     },
     
 ];
@@ -69,24 +73,30 @@ header.innerHTML=
     </div>
 `
 
-pages.forEach((page) => {
+pages.forEach((page, index) => {
 
     header.innerHTML += `
-        <div class="nav-area">
-        <li class="nav-list">
-            <a href="${page.path}">${page.name}</a>
-        </li>
-        <svg>
-                <path
-                    class="nav-line"
-                    d="M20 50 L60 50"
-                    stroke-dasharray="300" 
-                    stroke-dashoffset="0"
-                />
-        </svg>
-        </div>
 
+        <div class="nav-area" id="page-${index}">
+        
+            <li class="nav-list">
+
+            <span class="page-btn">
+                <a href="${page.path}">${page.name}</a>
+            </span>
+            </li>
+
+            <svg width="50" height="10">
+            <path
+                class="nav-line"
+                d="M0 5 L50 5"
+                stroke-dasharray="50"
+                stroke-dashoffset="0"
+            />
+            </svg>
+        </div>
     `;
+
 });
 
 header.innerHTML +=
@@ -96,6 +106,63 @@ header.innerHTML +=
     </a>
 `
 
+//On mouse hover, animate SVG underline for each page link and color it according to it's color property in its respective object
+pages.forEach((page, index)=>{
+
+    const nav = document.querySelector(`#page-${index}`);
+    const line = nav.querySelector(".nav-line");
+
+    let tl = gsap.timeline({ paused: true });
+    
+    
+    tl.fromTo(line,
+            { 
+                drawSVG: "0% 0%" 
+            },
+
+            {   drawSVG: "5% 95%", 
+                duration: 0.3,
+                stroke: page.color
+            }
+        );
+
+        nav.addEventListener("mouseenter", ()=>{
+
+            tl.restart();
+        })
+
+        nav.addEventListener("mouseleave", ()=>{
+
+            tl.reverse();
+        })
+
+
+    
+})
+
+
+const imgTl = gsap.timeline({paused: true});
+const styles = getComputedStyle(hero); //Access styling properties of the .hero-section
+
+//On mouse hover, give the hero section image a zoom in effect, and zoom out when the user hovers away
+imgTl.fromTo(hero, 
+    {
+    backgroundSize: "105%"},
+    {
+        backgroundSize: "110%",
+        duration: 0.5,
+        ease: "power2.out"
+})
+
+hero.addEventListener(("mouseenter"), ()=>{
+    imgTl.restart()
+
+})
+
+hero.addEventListener(("mouseleave"), ()=>{
+    imgTl.reverse()
+
+})
 
 footer.innerHTML =
 `
@@ -157,3 +224,48 @@ backBtn.addEventListener("mouseleave",()=>{
     })
 })
 
+
+
+export function createTimeline(loadingBubbles){
+
+    const loadingTimeline = gsap.to(loadingBubbles, {
+
+        fill: "#FAFAFA",
+        scale: 1.1,
+        stagger: 0.1,
+        duration: 0.2,
+        repeat : -1,
+        yoyo: true,
+        paused: true
+    })
+
+    return loadingTimeline;
+}
+
+
+export function createSearch(searchbarVar, url, searchFunction){
+
+    searchbarVar.addEventListener("keydown", (event) => {
+
+    if (event.key === "Enter") {
+
+        event.preventDefault();
+        resultsContainer.textContent = "";
+        //loadingBar.style.display = "flex";
+    
+       searchFunction(url)
+    }
+    
+});
+}
+
+
+function createResultsContainers(){
+
+    const searchbar = document.querySelector(".searchbar");
+    const resultsContainer = document.querySelector(".results");
+    const resultsText = document.querySelector(".results-head");
+    const loadingBar = document.querySelector(".loading-bar");
+
+    return searchbar, resultsContainer, resultsText
+}

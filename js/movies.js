@@ -7,6 +7,12 @@ const suggestContainer = document.querySelector("#suggestions-container");
 
 const searchbar = document.querySelector(".searchbar");
 const resultsContainer = document.querySelector(".results");
+const resultsText = document.querySelector(".results-head");
+
+const loadingBubbles = document.querySelectorAll(".loading-circle");
+const loadingBar = document.querySelector(".loading-bar");
+
+import { createTimeline } from "./headerFooter.js";
 
 searchbar.addEventListener("keydown", (event) => {
 
@@ -14,7 +20,8 @@ searchbar.addEventListener("keydown", (event) => {
 
         event.preventDefault();
         console.log(searchbar.value);
-        resultsContainer.textContent = ""; 
+        resultsContainer.textContent = "";
+        loadingBar.style.display = "flex";
 
         let searchTermUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=${searchbar.value}`
 
@@ -23,7 +30,12 @@ searchbar.addEventListener("keydown", (event) => {
     
 });
 
+const loadingTimeline = createTimeline(loadingBubbles);
+
 const search = async(url) =>{
+
+    loadingTimeline.play();
+    resultsText.style.display ="none";
 
     try{
 
@@ -221,15 +233,7 @@ export const fetchResults = async(list, container)=>{
 
         const searchUrl = `https://www.omdbapi.com/?apikey=${apiKey}&t=${element}`;
 
-        const res = await fetch(searchUrl, {
-
-            headers:{
-
-                Accept: "application/json",
-                "User-Agent": "API Practice"
-            }
-        });
-
+        const res = await fetch(searchUrl);
 
         const data = await res.json();
         console.log(data)
