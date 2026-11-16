@@ -60,3 +60,17 @@ savedMovies.forEach((movie)=>{
 savedMoviesContainer.appendChild(card);
 
 })
+
+// GAMES
+
+const savedGamesContainer = document.querySelector(".games-container");
+
+const savedGames = JSON.parse(localStorage.getItem("savedGames")) || [];
+
+import { createCard } from "./games.js";
+
+savedGames.forEach((game)=>{
+    createCard(game, savedGamesContainer, "game-card", false);
+})
+
+

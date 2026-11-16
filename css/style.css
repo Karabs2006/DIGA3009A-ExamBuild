@@ -177,3 +177,7 @@ footer
     width: 2em;
     height: 2em;
 }
+
+.bi-heart:hover{
+    cursor: pointer;
+}

@@ -65,3 +65,7 @@
     height: 4em;
     fill:rgb(255, 153, 0)
 }
+
+.btn:hover{
+    cursor: pointer;
+}

@@ -142,27 +142,29 @@ pages.forEach((page, index)=>{
 
 
 const imgTl = gsap.timeline({paused: true});
-const styles = getComputedStyle(hero); //Access styling properties of the .hero-section
+if(hero){
+    const styles = getComputedStyle(hero); //Access styling properties of the .hero-section
 
-//On mouse hover, give the hero section image a zoom in effect, and zoom out when the user hovers away
-imgTl.fromTo(hero, 
-    {
-    backgroundSize: "105%"},
-    {
-        backgroundSize: "110%",
-        duration: 0.5,
-        ease: "power2.out"
-})
+    //On mouse hover, give the hero section image a zoom in effect, and zoom out when the user hovers away
+    imgTl.fromTo(hero, 
+        {
+        backgroundSize: "105%"},
+        {
+            backgroundSize: "110%",
+            duration: 0.5,
+            ease: "power2.out"
+    })
 
-hero.addEventListener(("mouseenter"), ()=>{
-    imgTl.restart()
+    hero.addEventListener(("mouseenter"), ()=>{
+        imgTl.restart()
 
-})
+    })
 
-hero.addEventListener(("mouseleave"), ()=>{
-    imgTl.reverse()
+    hero.addEventListener(("mouseleave"), ()=>{
+        imgTl.reverse()
 
-})
+    })
+}
 
 footer.innerHTML =
 `
@@ -243,7 +245,7 @@ export function createTimeline(loadingBubbles){
 }
 
 
-export function createSearch(searchbarVar, url, searchFunction){
+export function createSearch(searchbarVar, searchFunction){
 
     searchbarVar.addEventListener("keydown", (event) => {
 
@@ -253,7 +255,7 @@ export function createSearch(searchbarVar, url, searchFunction){
         resultsContainer.textContent = "";
         //loadingBar.style.display = "flex";
     
-       searchFunction(url)
+       searchFunction()
     }
     
 });

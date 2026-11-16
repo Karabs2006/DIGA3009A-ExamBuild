@@ -1,5 +1,4 @@
 
-
 #games-hero{
     background-image: url("../images/games-hero-img.jpg");
     background-position: 50% 0%;
@@ -24,6 +23,11 @@
     padding-bottom: 20px;
 }
 
+.game-card{
+    padding: 20px;
+    border-radius: 20px;
+}
+
 
 .game-cover{
     width: 15em;
@@ -33,6 +37,20 @@
     object-fit: cover;
     object-position: center;
 }
+
+/*
+.game-content{
+    display: flex;
+    gap: 20px
+}
+
+.game-description{
+    display: block;
+    max-height: 20px;
+    width: 40rem;
+    font-size: 15px;
+}
+*/
 
 .results-card{
     display: flex;
@@ -46,4 +64,12 @@
 
 h1.results.hide{
     display: none;
+}
+
+.bi-heart{
+    display: none;
+    width: 2em;
+    height: 4em;
+    fill:magenta;
+    opacity: 0;
 }
