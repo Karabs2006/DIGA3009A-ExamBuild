@@ -154,6 +154,22 @@ const uniqueSearch = async(idUrl) =>{
 
             
             const ratingElement = card.querySelector(".imdb-rating");
+            const saveButton = card.querySelector(".bi-heart");
+
+
+            saveButton.addEventListener("click", () => {
+
+                        console.log("CLICKEDDDD")
+                       
+                            let savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
+
+                            if (!savedMovies.some(saved => saved.imdbID === item.imdbID)) {
+                                savedMovies.push(item);
+                                localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+                            }
+                        
+                        
+                    });
 
             //CHANGE BACKGROUND COLOR OF IMDB SCORE BASED ON ITS RATING
             conditions.forEach((condition) =>{
@@ -342,14 +358,14 @@ export const fetchResults = async(list, container)=>{
                     saveButton.addEventListener("click", () => {
 
                         console.log("CLICKEDDDD")
-                        if(data.Type == "movie"){
+                       
                             let savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
 
                             if (!savedMovies.some(saved => saved.imdbID === data.imdbID)) {
                                 savedMovies.push(data);
                                 localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
                             }
-                        }
+                        
                         
                     });
 

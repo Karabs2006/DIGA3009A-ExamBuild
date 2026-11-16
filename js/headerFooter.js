@@ -1,6 +1,7 @@
 const header = document.querySelector("header");
 const footer = document.querySelector("footer");
 const hero = document.querySelector(".hero-section");
+gsap.registerPlugin(ScrollToPlugin)
 
 
 const pages = [
@@ -32,10 +33,22 @@ const pages = [
 
 const socialImages = [
 
-    "../images/twitter.jpg",
-    "../images/instagram.png",
-    "../images/xbox.png",
-    "../images/github.png",
+    {   image: "../images/twitter.jpg",
+        url: "https://x.com/KayyDude"
+
+    },
+
+    {   image:"../images/instagram.png",
+        url: "https://www.instagram.com/k4ybeee_/"
+    },
+    {   image:"../images/xbox.png",
+        url:""
+    },
+    {   image:"../images/github.png",
+        url:"https://github.com/Karabs2006"
+    },
+    
+
 ]
 
 header.innerHTML=
@@ -178,7 +191,7 @@ footer.innerHTML =
     </p>
 </div>
 
-<button class="back-btn">
+<button class="footer-btn">
 Back To Top
 </button>
 
@@ -192,10 +205,17 @@ const socialContainer = document.querySelector(".socials-section");
 
 socialImages.forEach((image)=>{
 
-    socialContainer.innerHTML +=
+    const imgHolder = document.createElement("span");
+    imgHolder.innerHTML +=
     `
-    <img src="${image}">
+    <img src="${image.image}">
     `
+    socialContainer.appendChild(imgHolder);
+
+    imgHolder.addEventListener("click", ()=>{
+        window.open(image.url,'_blank', 'noopener,noreferrer')
+
+    })
 })
 
 //CLEAR BUTTON IMPLEMENTAION PER PAGE
@@ -261,7 +281,7 @@ export function createSearch(searchbarVar, searchFunction){
 });
 }
 
-
+/*
 function createResultsContainers(){
 
     const searchbar = document.querySelector(".searchbar");
@@ -271,3 +291,25 @@ function createResultsContainers(){
 
     return searchbar, resultsContainer, resultsText
 }
+    */
+
+const footerBtn = footer.querySelector(".footer-btn");
+
+footerBtn.addEventListener("mouseenter", ()=>{
+    gsap.to(footerBtn, {
+        scale: 1.1
+    })
+})
+
+footerBtn.addEventListener("mouseleave", ()=>{
+    gsap.to(footerBtn, {
+        scale: 1
+    })
+})
+
+footerBtn.addEventListener("click",()=>{
+    gsap.to(window, {
+        scrollTo: header,
+        ease: "power3.Out"
+    })
+})

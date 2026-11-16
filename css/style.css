@@ -163,21 +163,30 @@ footer
 
 }
 
-.back-btn{
+.footer-btn{
     border-style: none;
     padding: 20px;
     width: 20em;
     border-radius: 40px;
-    background-color: magenta;
-    color: aliceblue;
-    
+    background-color: #ff00ff;
+    color: aliceblue;  
+}
+
+.footer-btn:hover{
+    cursor: pointer;
 }
 
 .socials-section img{
     width: 2em;
     height: 2em;
 }
-
+.socials-section img:hover{
+    cursor: pointer;
+}
 .bi-heart:hover{
     cursor: pointer;
+}
+
+.fill-path{
+    fill: none;
 }

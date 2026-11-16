@@ -44,6 +44,7 @@ export function createCard(element, container, className, enableSave = true ){
                 <p><strong>Genre: </strong>${element.genres[0].name}</p>
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart save-button btn" viewBox="0 0 16 16">
+                <path class="fill-path" fill="#ff4d6d" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                 <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
                 </svg>
 
@@ -55,6 +56,9 @@ export function createCard(element, container, className, enableSave = true ){
 
         let btnTl = gsap.timeline({paused: true, defaults: {duration: 0.2}});
         const saveButton = card.querySelector(".save-button");
+        const fillPath = card.querySelector(".fill-path");
+
+       
 
         btnTl.to(saveButton, {
             scale: 1.2,
@@ -70,8 +74,12 @@ export function createCard(element, container, className, enableSave = true ){
         })
 
         if(enableSave){
-        addGame(element, saveButton)
+        addGame(element, saveButton, fillPath)
         }
+
+        return card;
+
+
 }
 
 //Function to create animations for multiple cards 
@@ -115,7 +123,7 @@ function createGameAnim(card, paragraph, titles, h, button, ){
 }
 
 //On click, pass game data into JSON onto the user.js file
-function addGame(data, btn){
+function addGame(data, btn, fill){
 
     if(btn != null)
     {
@@ -129,6 +137,11 @@ function addGame(data, btn){
 
                 localStorage.setItem("savedGames", JSON.stringify(savedGames));
             }
+
+            
+            gsap.to(fill, {
+            fill: "#ff00ff"
+            })
 
             console.log("I WENT")
         }

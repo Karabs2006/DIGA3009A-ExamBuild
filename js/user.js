@@ -70,7 +70,20 @@ const savedGames = JSON.parse(localStorage.getItem("savedGames")) || [];
 import { createCard } from "./games.js";
 
 savedGames.forEach((game)=>{
-    createCard(game, savedGamesContainer, "game-card", false);
+
+    const card = createCard(game, savedGamesContainer, "game-card", false);
+
+    const fillPath = card.querySelector(".fill-path");
+
+    fillPath.style.fill = "#ff00ff";
+
+    fillPath.addEventListener("click",()=>{
+        
+    })
+
+    
 })
+
+
 
 
