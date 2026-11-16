@@ -52,7 +52,24 @@ const socialImages = [
 ]
 
 header.innerHTML=
-`
+`   
+<div class="off-screen-menu">
+
+</div>
+
+
+
+    <nav >
+        <div class="ham-menu">
+            <svg viewBox="0 0 30 30">
+        <path class="ham-line" d="M3 7 L27 7"/>
+        <path class="ham-line" d="M3 15 L27 15"/>
+        <path class="ham-line" d="M3 23 L27 23"/>
+    </svg>
+            
+        </div>
+       
+    </nav>
     <img src="../images/logo.png" id="logo-img">
 
     <div class="search-area">
@@ -85,6 +102,7 @@ header.innerHTML=
         </div>
     </div>
 `
+const burgerMenu = document.querySelector(".off-screen-menu")
 
 pages.forEach((page, index) => {
 
@@ -110,6 +128,26 @@ pages.forEach((page, index) => {
         </div>
     `;
 
+    burgerMenu.innerHTML += 
+    `<div class="ham-pages" id="page-${index}">
+        
+            <li class="nav-list">
+
+            <span class="page-btn">
+                <a href="${page.path}">${page.name}</a>
+            </span>
+            </li>
+
+            <svg width="50" height="10">
+            <path
+                class="nav-line"
+                d="M0 5 L50 5"
+                stroke-dasharray="50"
+                stroke-dashoffset="0"
+            />
+            </svg>
+        </div>`
+
 });
 
 header.innerHTML +=
@@ -118,6 +156,15 @@ header.innerHTML +=
     <img src="../images/profile.png" id="profile-img">
     </a>
 `
+
+const hamMenu = document.querySelector(".ham-menu");
+
+hamMenu.addEventListener("click",()=>{
+    console.log("ham pressed")
+    gsap.to(burgerMenu, {
+        x: 0
+    })
+})
 
 //On mouse hover, animate SVG underline for each page link and color it according to it's color property in its respective object
 pages.forEach((page, index)=>{

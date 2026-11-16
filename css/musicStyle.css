@@ -69,3 +69,36 @@
 .btn:hover{
     cursor: pointer;
 }
+
+@media (max-width: 480px){
+    .song-card{
+        width: 80%;
+        padding: 8px;
+    }
+    
+    .album-artwork{
+    border-radius: 10px;
+    height: 4em;
+    
+    }
+
+    .song-card h2{
+        font-size: 15px;  
+    }
+
+    .song-card p{
+        font-size: 10px;
+    }
+
+.user-buttons{
+    width: 2em;
+    height: 2em;
+    display: flex;
+    margin-left: auto;
+}
+.bi-heart{
+    width: 2em;
+    height: 4em;
+    fill:magenta
+}
+}

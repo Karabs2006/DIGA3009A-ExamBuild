@@ -27,6 +27,14 @@ a{
     text-decoration: none;
 }
 
+.ham-menu,
+.ham-menu svg,
+.ham-line,
+.off-screen-menu
+{
+   display: none;
+}
+
 #logo-img{
     width: 2.7em;
     height: 2.7em;
@@ -189,4 +197,71 @@ footer
 
 .fill-path{
     fill: none;
+}
+
+@media (max-width: 480px){
+    .nav-area{
+        display: none;
+    }
+
+    .searchbar{
+        width: 10rem;
+    }
+
+    h1{
+        font-size: 2em;
+    }
+
+    .hero-section{
+        height: 10rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;      
+        justify-content: flex-start; 
+        padding-left: 15px;
+        margin-bottom: 20px;
+    }
+
+    .off-screen-menu{
+   
+    position: fixed;
+    top: 0;
+    
+    width: 70vw;
+    height: 100vh;
+    background-color: #0a0a0b;
+    z-index: 1000;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transform: translateX(-100%);
+
+    
+}
+.ham-menu{
+    display: flex;
+    flex-direction: column;
+    
+    
+    
+}
+
+.ham-menu svg{
+    width: 2em;
+    padding: 0;
+    height: 3.5em;
+}
+
+.ham-line{
+    stroke: antiquewhite;
+    stroke-width: 2px;
+}
+
+    .quote-paragraph{
+        display: none;
+    }
 }
