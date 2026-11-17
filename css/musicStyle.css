@@ -72,7 +72,7 @@
 
 @media (max-width: 480px){
     .song-card{
-        width: 100%;
+        width: auto;
         height: auto;
         padding: 8px;
     }

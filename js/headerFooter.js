@@ -4,6 +4,7 @@ const hero = document.querySelector(".hero-section");
 gsap.registerPlugin(ScrollToPlugin)
 
 
+
 const pages = [
 
     {   name: "Games",
@@ -63,14 +64,14 @@ header.innerHTML=
 
 
 
-    <nav >
+    <nav>
+
         <div class="ham-menu">
             <svg viewBox="0 0 30 30">
-        <path class="ham-line" d="M3 7 L27 7"/>
-        <path class="ham-line" d="M3 15 L27 15"/>
-        <path class="ham-line" d="M3 23 L27 23"/>
-    </svg>
-            
+                <path class="ham-line" d="M3 7 L27 7"/>
+                <path class="ham-line" d="M3 15 L27 15"/>
+                <path class="ham-line" d="M3 23 L27 23"/>
+            </svg>
         </div>
        
     </nav>
@@ -119,7 +120,9 @@ closeMenuBtn.addEventListener("click", ()=>{
     //burgerMenu.style.display = "none";
     
     gsap.to(burgerMenu, {
-        left: "-300px"
+        left: "-300px",
+        ease: "power1.Out",
+        duration: 0.5
     })
 
 })
@@ -150,12 +153,12 @@ pages.forEach((page, index) => {
 
 
     burgerMenu.insertAdjacentHTML("beforeend", 
-    `<div class="ham-pages" id="page-${index}">
+    `<div class="ham-pages" id="ham-page-${index}">
         
             <li class="nav-list">
 
             <span class="page-btn">
-                <a href="${page.path}">${page.name}</a>
+                <a href="${window.location.pathname === '/index.html' ? page.indexPath : page.path}">${page.name}</a>
             </span>
             </li>
 
@@ -183,7 +186,9 @@ const hamMenu = document.querySelector(".ham-menu");
 hamMenu.addEventListener("click",()=>{
     console.log("ham pressed")
     gsap.to(burgerMenu, {
-        left: "280px"
+        left: "400px",
+        ease: "power1.Out",
+        duration: 0.5
     })
 })
 
@@ -198,14 +203,19 @@ pages.forEach((page, index)=>{
     const isCurrentPage = currentFile === pageFile;
 
 
-    const nav = document.querySelector(`#page-${index}`);
+    
+    const nav = header.querySelector(`#page-${index}`);
     const line = nav.querySelector(".nav-line");
+    const hamNav = header.querySelector(`#ham-page-${index}`);
+    const hamLine = hamNav.querySelector(".nav-line");
 
     let tl = gsap.timeline({ paused: true });
     
     if (isCurrentPage) {
         // Keep the active page's line visible and colored
         gsap.set(line, { drawSVG: "5% 95%", stroke: page.color });
+        gsap.set(hamLine, { drawSVG: "5% 95%", stroke: page.color });
+
     } 
     
     else {

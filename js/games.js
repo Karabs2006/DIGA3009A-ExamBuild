@@ -157,6 +157,15 @@ function addGame(data, btn, fill){
     }
 }
 
+/*
+const loadingArea = document.querySelectorAll(".loading-area");
+
+loadingArea.forEach((area)=>{
+    area.innerHTML = loadingBar.innerHTML
+});
+*/
+
+
 export const fetchSuggestions = async(list, container) => {
 
     try
