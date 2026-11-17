@@ -8,3 +8,21 @@
     width: 20em;
     height: 20em;
 }
+
+.section-head{
+    display: flex;
+    justify-content: space-between;
+}
+
+.section-head button{
+    height: 4em;
+    width: 6em;
+    border-radius: 10px;
+    border-style: none;
+    background-color: #d21111;
+    margin: 20px;
+}
+
+.empty-msg{
+    padding: 20px;
+}

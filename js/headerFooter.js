@@ -7,25 +7,29 @@ gsap.registerPlugin(ScrollToPlugin)
 const pages = [
 
     {   name: "Games",
-        path: ".././index.html",
+        path: "../index.html",
+        indexPath:"index.html",
         color: "#0BA3FF"
     },
 
     {
         name: "Movies/TV",
         path: "movies.html",
+        indexPath: "./html/movies.html",
         color: "#FFEF00",
     },
 
     {
         name: "Music",
         path: "music.html",
+        indexPath:"./html/music.html",
         color: "#E0115F"
     },
 
     {
         name: "kb's 2026",
         path: "recap.html",
+        indexPath: "./html/recap.html",
         color: "#89f336"
     },
     
@@ -105,7 +109,6 @@ header.innerHTML=
 const burgerMenu = document.querySelector(".off-screen-menu")
 
 pages.forEach((page, index) => {
-
     header.innerHTML += `
 
         <div class="nav-area" id="page-${index}">
@@ -113,7 +116,7 @@ pages.forEach((page, index) => {
             <li class="nav-list">
 
             <span class="page-btn">
-                <a href="${page.path}">${page.name}</a>
+                <a href="${window.location.pathname === '/index.html' ? page.indexPath : page.path}">${page.name}</a>
             </span>
             </li>
 
@@ -127,6 +130,7 @@ pages.forEach((page, index) => {
             </svg>
         </div>
     `;
+
 
     burgerMenu.innerHTML += 
     `<div class="ham-pages" id="page-${index}">
@@ -152,7 +156,7 @@ pages.forEach((page, index) => {
 
 header.innerHTML +=
 `
-    <a href="./html/user.html">
+    <a href="../html/user.html">
     <img src="../images/profile.png" id="profile-img">
     </a>
 `
@@ -169,32 +173,47 @@ hamMenu.addEventListener("click",()=>{
 //On mouse hover, animate SVG underline for each page link and color it according to it's color property in its respective object
 pages.forEach((page, index)=>{
 
+    const currentFile = window.location.pathname.split("/").pop() || "index.html";
+
+
+    // Extract the filename from page.indexPath (e.g., "./html/movies.html" -> "movies.html")
+    const pageFile = page.indexPath.split("/").pop();
+    const isCurrentPage = currentFile === pageFile;
+
+
     const nav = document.querySelector(`#page-${index}`);
     const line = nav.querySelector(".nav-line");
 
     let tl = gsap.timeline({ paused: true });
     
+    if (isCurrentPage) {
+        // Keep the active page's line visible and colored
+        gsap.set(line, { drawSVG: "5% 95%", stroke: page.color });
+    } 
     
-    tl.fromTo(line,
-            { 
-                drawSVG: "0% 0%" 
-            },
+    else {
+        tl.fromTo(line,
+                { 
+                    drawSVG: "0% 0%" 
+                },
 
-            {   drawSVG: "5% 95%", 
-                duration: 0.3,
-                stroke: page.color
-            }
-        );
+                {   drawSVG: "5% 95%", 
+                    duration: 0.3,
+                    stroke: page.color
+                }
+            );
 
-        nav.addEventListener("mouseenter", ()=>{
+            nav.addEventListener("mouseenter", ()=>{
 
-            tl.restart();
-        })
+                tl.restart();
+            })
 
-        nav.addEventListener("mouseleave", ()=>{
+            nav.addEventListener("mouseleave", ()=>{
 
-            tl.reverse();
-        })
+                tl.reverse();
+            })
+
+    }
 
 
     
@@ -344,13 +363,13 @@ const footerBtn = footer.querySelector(".footer-btn");
 
 footerBtn.addEventListener("mouseenter", ()=>{
     gsap.to(footerBtn, {
-        scale: 1.1
+        scaleX: 1.1
     })
 })
 
 footerBtn.addEventListener("mouseleave", ()=>{
     gsap.to(footerBtn, {
-        scale: 1
+        scaleX: 1
     })
 })
 

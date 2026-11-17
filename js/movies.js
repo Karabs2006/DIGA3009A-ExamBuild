@@ -70,6 +70,11 @@ const search = async(url) =>{
         console.log(error);
 
     }
+    finally {
+        loadingTimeline.pause(0);
+        loadingBar.style.display = "none";
+        resultsText.style.display ="flex";
+    }
 }
 
 //This is a list with various conditions to be used to change the bakground color of each item's imdb-rating element
@@ -322,7 +327,8 @@ export const fetchResults = async(list, container)=>{
 
                     <div class="user-buttons">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart save-button" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart save-button btn" viewBox="0 0 16 16">
+                        <path class="fill-path" fill="#ff4d6d" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                         <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
                         </svg>
 
@@ -354,6 +360,7 @@ export const fetchResults = async(list, container)=>{
                     card.appendChild(extraInfo);
 
                     const saveButton = extraInfo.querySelector(".save-button");
+                    const fillPath = saveButton.querySelector(".fill-path");
 
                     saveButton.addEventListener("click", () => {
 
@@ -365,12 +372,27 @@ export const fetchResults = async(list, container)=>{
                                 savedMovies.push(data);
                                 localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
                             }
+
+                            gsap.to(fillPath, {
+                            fill: "#ff00ff"
+                            })
+
+            
+                            return extraInfo;
                         
                         
                     });
 
+            }  else {
+
+                const extraInfo = card.querySelector(".extra-info");
+
+                if (extraInfo) {
+                    extraInfo.remove();
+                }
+
+                isClicked = false;
             }
-            
 
 
         })

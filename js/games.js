@@ -1,4 +1,4 @@
-const apiKey = "207e680a9fa749ca8cd65688cc10b8b8";
+const apiKey = "0783a19fabd5427c8dfe36c86cc1ab03";
 const platformsUrl = `https://api.rawg.io/api/platforms?key=`;
 const gamesUrl = `https://api.rawg.io/api/games?key=${apiKey}`;
 const container = document.querySelector("#must-plays-container");
@@ -6,7 +6,15 @@ const suggestContainer = document.querySelector("#suggestions-container");
 
 const searchbar = document.querySelector(".searchbar");
 const resultsContainer = document.querySelector(".results");
+
+const loadingBubbles = document.querySelectorAll(".loading-circle");
+const loadingBar = document.querySelector(".loading-bar");
+const resultsText = document.querySelector(".results-head");
+
+import { createTimeline } from "./headerFooter.js";
 //const resultsHeading = document.querySelector("h1.results");
+
+const loadingTimeline = createTimeline(loadingBubbles);
 
 const suggestionTerms = [
     "gears-of-war-2",
@@ -31,7 +39,7 @@ export function createCard(element, container, className, enableSave = true ){
 
      const card = document.createElement("div");
 
-        card.classList.add(`${className}`);
+        card.classList.add(...className.split(" "));
         const date = new Date(element.released);
 
         card.innerHTML =
@@ -41,7 +49,7 @@ export function createCard(element, container, className, enableSave = true ){
                 <h2>${element.name}</h2>
                 <p><strong>Metacritic: </strong>${element.metacritic} </p>
                 <p><strong>Released: </strong>${date.getFullYear()}</p>
-                <p><strong>Genre: </strong>${element.genres[0].name}</p>
+                <p><strong>Genre: </strong>${element.genres?.[0]?.name || "Unknown" }</p>
 
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart save-button btn" viewBox="0 0 16 16">
                 <path class="fill-path" fill="#ff4d6d" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
@@ -149,11 +157,11 @@ function addGame(data, btn, fill){
     }
 }
 
-const fetchSuggestions = async() => {
+export const fetchSuggestions = async(list, container) => {
 
     try
     {
-        suggestionTerms.forEach(async(suggestion)=>{
+        list.forEach(async(suggestion)=>{
             const searchUrl = `https://api.rawg.io/api/games/${suggestion}?key=${apiKey}`
 
              const res = await fetch(searchUrl, {
@@ -168,7 +176,7 @@ const fetchSuggestions = async() => {
             const data = await res.json();
             console.log(data);
 
-            createCard(data, suggestContainer, "game-card");
+            createCard(data, container, "game-card");
         });      
             
     }
@@ -214,6 +222,10 @@ const fetchKey = async() => {
 
 const search = async(url)=>{
 
+    loadingTimeline.play();
+    resultsText.style.display ="none";
+    loadingBar.style.display = "flex";
+
     const searchUrl = url
     const res = await fetch(url, {
 
@@ -229,26 +241,15 @@ const search = async(url)=>{
         console.log(data);
 
         data.results.forEach((game) => {
-       
-        const card = document.createElement("div");
-
-        card.classList.add("results-card");
-        const date = new Date(game.released);
-
-        card.innerHTML =
-        `
-            <img src="${game.background_image}" class="game-cover">
-            <div class ="results-game-info">
-                <h2>${game.name}</h2>
-                <p><strong>Metacritic: </strong>${game.metacritic} </p>
-                <p><strong>Released: </strong>${date.getFullYear()}</p>
-                <p><strong>Genre: </strong>${game.genres[0]}</p>
-            </div>
-
-        `
-        resultsContainer.appendChild(card);
+            
+        createCard(game, resultsContainer, "game-card results-card");
     
     });
+
+    loadingTimeline.pause(0);
+    loadingBar.style.display = "none";
+    resultsText.style.display = "flex";
+
 
 }
 
@@ -275,6 +276,6 @@ if (container) {
     fetchKey();
 }
 
-if (suggestContainer) {
-    fetchSuggestions();
+if (suggestContainer && !document.querySelector("#recap-games-container")) {
+    fetchSuggestions(suggestionTerms, suggestContainer);
 }

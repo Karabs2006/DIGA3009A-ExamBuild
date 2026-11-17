@@ -82,7 +82,7 @@ a{
     margin: 20px;
 }
 
-.results-head button:hover{
+button:hover{
   
     cursor: pointer;
 }

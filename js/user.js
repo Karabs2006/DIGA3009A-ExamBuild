@@ -1,3 +1,21 @@
+/*
+const catergoryHeaders = document.querySelectorAll(".section-head");
+
+catergoryHeaders.forEach((section) =>{
+    
+    const clearBtn = document.createElement("button");
+    clearBtn.type = "button"
+    clearBtn.textContent = "Clear"
+
+    section.appendChild(clearBtn);
+
+})
+*/
+import { createCard } from "./games.js";
+
+
+
+
 
 // MUSIC
 const savedSongsContainer = document.querySelector(".music-container");
@@ -62,12 +80,16 @@ savedMoviesContainer.appendChild(card);
 })
 
 // GAMES
+const gamesSection = document.querySelector("#user-games");
+
+
+
 
 const savedGamesContainer = document.querySelector(".games-container");
 
 const savedGames = JSON.parse(localStorage.getItem("savedGames")) || [];
 
-import { createCard } from "./games.js";
+
 
 savedGames.forEach((game)=>{
 
@@ -84,6 +106,68 @@ savedGames.forEach((game)=>{
     
 })
 
+function clearCollection(sectionKey, list){
+
+    
+    // 1. Clear the array in memory (works with 'const')
+    list.length = 0;
+
+    // 2. Save the empty array back to localStorage
+    localStorage.setItem(sectionKey, JSON.stringify(list));
+
+
+}
+
+const listObjs = [
+
+    {
+        list: savedGames,
+        storageKey: "savedGames",
+        sectionID: "#user-games",
+        infoContainer: ".games-container"
+    },
+    
+    {
+        list: savedMovies,
+        storageKey: "savedMovies",
+        sectionID: "#user-movies",
+        infoContainer: ".movie-container"
+    },
+
+    {
+        list: savedSongs,
+        storageKey: "savedSongs",
+        sectionID: "#user-music",
+        infoContainer: ".music-container"
+    },
+
+]
+
+listObjs.forEach((list)=>{
+
+    const section = document.querySelector(list.sectionID);
+    const catergoryHeader = section.querySelector(".section-head");
+    const info = section.querySelector(list.infoContainer);
+    
+
+    if(list.list.length === 0){
+        info.innerHTML = `<p class = "empty-msg"><em>No Results Yet!</em></p>`
+    }
+
+    const clearBtn = document.createElement("button");
+    clearBtn.type = "button"
+    clearBtn.textContent = "Clear"
+
+    catergoryHeader.appendChild(clearBtn);
+
+    clearBtn.addEventListener("click", ()=>{
+
+       
+        clearCollection(list.storageKey, list.list);
+        info.innerHTML = `<p class = "empty-msg">No Results Yet!</p>`
+    })
+
+})
 
 
 
