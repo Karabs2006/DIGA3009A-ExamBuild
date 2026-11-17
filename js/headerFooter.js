@@ -106,10 +106,27 @@ header.innerHTML=
         </div>
     </div>
 `
-const burgerMenu = document.querySelector(".off-screen-menu")
+const burgerMenu = document.querySelector(".off-screen-menu");
+
+burgerMenu.innerHTML = 
+`   
+     <img src="../images/icons/cross.svg" class="close-menu-btn">
+`
+const closeMenuBtn = burgerMenu.querySelector(".close-menu-btn");
+
+closeMenuBtn.addEventListener("click", ()=>{
+
+    //burgerMenu.style.display = "none";
+    
+    gsap.to(burgerMenu, {
+        left: "-300px"
+    })
+
+})
+
 
 pages.forEach((page, index) => {
-    header.innerHTML += `
+    header.insertAdjacentHTML("beforeend", `
 
         <div class="nav-area" id="page-${index}">
         
@@ -129,10 +146,10 @@ pages.forEach((page, index) => {
             />
             </svg>
         </div>
-    `;
+    `);
 
 
-    burgerMenu.innerHTML += 
+    burgerMenu.insertAdjacentHTML("beforeend", 
     `<div class="ham-pages" id="page-${index}">
         
             <li class="nav-list">
@@ -150,23 +167,23 @@ pages.forEach((page, index) => {
                 stroke-dashoffset="0"
             />
             </svg>
-        </div>`
+        </div>`)
 
 });
 
-header.innerHTML +=
+header.insertAdjacentHTML("beforeend",
 `
     <a href="../html/user.html">
     <img src="../images/profile.png" id="profile-img">
     </a>
-`
+`)
 
 const hamMenu = document.querySelector(".ham-menu");
 
 hamMenu.addEventListener("click",()=>{
     console.log("ham pressed")
     gsap.to(burgerMenu, {
-        x: 0
+        left: "280px"
     })
 })
 

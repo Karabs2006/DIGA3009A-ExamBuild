@@ -209,7 +209,7 @@ footer
     }
 
     h1{
-        font-size: 2em;
+        font-size: 1.5em;
     }
 
     .hero-section{
@@ -227,7 +227,8 @@ footer
     position: fixed;
     top: 0;
     
-    width: 70vw;
+    
+    width: 80vw;
     height: 100vh;
     background-color: #0a0a0b;
     z-index: 1000;
@@ -237,22 +238,21 @@ footer
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transform: translateX(-10%);
 
-    transform: translateX(-100%);
+    
 
     
 }
 .ham-menu{
     display: flex;
     flex-direction: column;
-    
-    
-    
+
 }
 
 .ham-menu svg{
     width: 2em;
-    padding: 0;
+    padding: 10;
     height: 3.5em;
 }
 
@@ -264,4 +264,23 @@ footer
     .quote-paragraph{
         display: none;
     }
+
+.footer-btn{
+   padding: 10px;
+}
+
+
+.close-menu-btn{
+    position: fixed;
+    top: 50px;
+    height: 3em;
+}
+
+.socials-section{
+    margin-left: 40px;
+}
+
+.socials-section img{
+    margin: 5px;
+}
 }

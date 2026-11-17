@@ -13,7 +13,7 @@
 .movie-card-container{
     display: flex;
     overflow-x: auto;
-    scrollbar-width: none;     /* Hides scrollbar in Firefox */
+    scrollbar-width: none;     
     -ms-overflow-style: none;
 }
 
@@ -114,6 +114,13 @@
     border-radius: 5px;
     align-items: center;
     background-color: var(--rating-color);
+}
+
+@media (max-width: 480px){
+    .movie-card-container{
+        margin-left: 0px;
+       
+    }
 }
 
 

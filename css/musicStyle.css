@@ -72,7 +72,8 @@
 
 @media (max-width: 480px){
     .song-card{
-        width: 80%;
+        width: 100%;
+        height: auto;
         padding: 8px;
     }
     
@@ -91,8 +92,8 @@
     }
 
 .user-buttons{
-    width: 2em;
-    height: 2em;
+    width: 5em;
+    height: 4em;
     display: flex;
     margin-left: auto;
 }
@@ -100,5 +101,10 @@
     width: 2em;
     height: 4em;
     fill:magenta
+}
+
+#music-hero h1{
+    
+    font-size: 50px;
 }
 }

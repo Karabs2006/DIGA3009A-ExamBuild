@@ -12,3 +12,10 @@
 .searchbar{
     display: none;
 }
+
+@media (max-width: 480px){
+    #recap-hero h1{
+    font-size: 4em;
+}
+
+}
