@@ -1,4 +1,5 @@
-const apiKey = "4fcc086a";
+//const apiKey = "4fcc086a";
+const apiKey = "864d1651"
 const mainUrl = `https://www.omdbapi.com/?apikey=${apiKey}&s=power+rangers`;
 
 const moviesContainer = document.querySelector("#movie-container");
@@ -292,6 +293,10 @@ export const fetchResults = async(list, container)=>{
         const data = await res.json();
         console.log(data)
 
+        // If the data is valid then create the cards
+            if (data.Response === "False" || !data.Title || data.Title === "N/A") {
+                return;
+            }
 
         const card = document.createElement("div");
         card.classList.add("poster");

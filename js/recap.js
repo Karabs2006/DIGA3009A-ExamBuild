@@ -24,7 +24,7 @@ const recapSongs = [
 const recapMovies = [
     "Obsession",
     "Good Time",
-    "Se7en",
+    "Seven",
     "Parasite", 
     "Casino Royale",
     "The Prestige",

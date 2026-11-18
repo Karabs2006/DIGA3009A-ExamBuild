@@ -200,6 +200,11 @@ export const fetchSuggestions = async(list, container) => {
         console.log(error)
         console.error("Error fetching games:", error);
     }
+    finally
+    {
+        suggestLoadingTimeline.pause(0);
+        suggestLoadingBar.style.display = "none";
+    }
 }
 
 const fetchKey = async() => {
