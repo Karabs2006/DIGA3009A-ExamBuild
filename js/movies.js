@@ -132,12 +132,22 @@ const uniqueSearch = async(idUrl) =>{
 
             card.classList.add("results-card");
 
+            
+
+            let imgUrl;
+
+            if(item.Poster && (item.Poster !== "N/A" || item.Poster !== null)){
+                imgUrl = item.Poster
+            } else{
+                imgUrl = `../images/placeholder.jpg`
+            }
+
             card.innerHTML =
             `
-                <img src="${item.Poster}" class="results-poster">
+                <img src="${imgUrl}" class="results-poster">
                 <div class ="results-info">
                     <h2>${item.Title}</h2>
-                    <p><strong><i>${item.Actors}</i></p>
+                    <p><strong><i>${item.Actors}</strong></i></p>
                     <p><strong>Released: </strong>${item.Year}</p>
                     <p><strong>imdb Rating: </strong><span class="imdb-rating">${item.imdbRating}</span></p>
                     <p><strong>Genre: </strong>${item.Genre}</p>
@@ -145,24 +155,29 @@ const uniqueSearch = async(idUrl) =>{
 
                 <div class="user-buttons">
 
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                </svg>
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus " viewBox="0 0 16 16">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart save-button btn" viewBox="0 0 16 16">
+                    <path class="fill-path" fill="#ff4d6d" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
                 </svg>
 
 
                 </div>
             `
 
+            const poster = card.querySelector(".results-poster");
+
+            poster.onerror = () => {
+                poster.src = "../images/placeholder.jpg";
+            };
+
             
             const ratingElement = card.querySelector(".imdb-rating");
-            const saveButton = card.querySelector(".bi-heart");
 
+            let btnTl = gsap.timeline({paused: true, defaults: {duration: 0.2}});
+            const saveButton = card.querySelector(".save-button");
+            const fillPath = saveButton.querySelector(".fill-path");
 
-            saveButton.addEventListener("click", () => {
+                    saveButton.addEventListener("click", () => {
 
                         console.log("CLICKEDDDD")
                        
@@ -172,9 +187,27 @@ const uniqueSearch = async(idUrl) =>{
                                 savedMovies.push(item);
                                 localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
                             }
+
+                            gsap.to(fillPath, {
+                            fill: "#ff00ff"
+                            })
+
+                    
+                });
+
+            
+                btnTl.to(saveButton, {
+                    scale: 1.2,
+                })
+                    saveButton.addEventListener("mouseenter", ()=>{
+                    btnTl.restart();
                         
+                    })
+
+                    saveButton.addEventListener("mouseleave", ()=>{
+                    btnTl.reverse();
                         
-                    });
+                })
 
             //CHANGE BACKGROUND COLOR OF IMDB SCORE BASED ON ITS RATING
             conditions.forEach((condition) =>{
@@ -271,28 +304,38 @@ export const fetchResults = async(list, container)=>{
         `
         //GSAP ANIMATIONS
 
+        let extraInfoEnabled = false;
+
             const img = card.querySelector(".poster-click");
 
-            img.addEventListener("mouseenter", ()=>{
 
-                gsap.to(img,
-                    {   
-                        scale: 1.04,
-                        //ease: "power2.inOut"
-                    }
-                )
-            })
+           
 
-            img.addEventListener("mouseleave", ()=>{
+                img.addEventListener("mouseenter", ()=>{
 
-                gsap.to(img,
-                    {   
-                        scale: 1,
-                        //ease: "power2.inOut"
-                    }
-                )
-            });
+                if(!extraInfoEnabled){
+                    gsap.to(img,
+                        {   
+                            scale: 1.04,
+                            //ease: "power2.inOut"
+                        }
+                    )
+                }
+                })
 
+                img.addEventListener("mouseleave", ()=>{
+
+                    if(!extraInfoEnabled){
+                    gsap.to(img,
+                        {   
+                            scale: 1,
+                            //ease: "power2.inOut"
+                        }
+                    )
+                }
+                });
+            
+            /*
             img.addEventListener("click", ()=>{
 
                 gsap.to(img,
@@ -302,7 +345,7 @@ export const fetchResults = async(list, container)=>{
                     }
                 )
             });
-
+*/
             
             
 
@@ -311,10 +354,31 @@ export const fetchResults = async(list, container)=>{
 
         posterBtn.addEventListener("click",() => {
 
+            const scaleTl = gsap.timeline({paused: true, defaults : {ease: "power1.Out", duration: 0.5}});
+
+                scaleTl.fromTo(img,
+                    {   
+                        scale: 1,
+                        
+
+                    },{
+                        scale:0.9,
+                        
+                    }
+                ).to(img, {
+                    scale: 1
+                })
+
+
             if(isClicked == false)
             {
-
+                
                 isClicked = true;
+                extraInfoEnabled = true;
+
+                
+                scaleTl.restart();
+
 
                 const extraInfo = document.createElement("div");
                 extraInfo.classList.add("extra-info")
@@ -332,9 +396,7 @@ export const fetchResults = async(list, container)=>{
                         <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
                         </svg>
 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus " viewBox="0 0 16 16">
-                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                        </svg>
+                       
                     </div>
                 `
 
@@ -359,6 +421,7 @@ export const fetchResults = async(list, container)=>{
 
                     card.appendChild(extraInfo);
 
+                    let btnTl = gsap.timeline({paused: true, defaults: {duration: 0.2}});
                     const saveButton = extraInfo.querySelector(".save-button");
                     const fillPath = saveButton.querySelector(".fill-path");
 
@@ -383,6 +446,20 @@ export const fetchResults = async(list, container)=>{
                         
                     });
 
+                    
+                btnTl.to(saveButton, {
+                    scale: 1.2,
+                })
+                    saveButton.addEventListener("mouseenter", ()=>{
+                    btnTl.restart();
+                        
+                    })
+
+                    saveButton.addEventListener("mouseleave", ()=>{
+                    btnTl.reverse();
+                        
+                })
+
             }  else {
 
                 const extraInfo = card.querySelector(".extra-info");
@@ -390,8 +467,10 @@ export const fetchResults = async(list, container)=>{
                 if (extraInfo) {
                     extraInfo.remove();
                 }
-
+               
                 isClicked = false;
+                extraInfoEnabled = false
+                scaleTl.restart();
             }
 
 
@@ -400,7 +479,9 @@ export const fetchResults = async(list, container)=>{
         //SAVE BUTTON LOGIC THAT KEEPS RECORD OF MOVIES IN THE USER.JS FILE
        
 
-        container.appendChild(card);        
+        container.appendChild(card);
+        
+        return card;
         });
 
         }
@@ -412,9 +493,16 @@ export const fetchResults = async(list, container)=>{
 
 }
 
-
+if (moviesContainer) {
     fetchResults(movieTerms, moviesContainer);
+}
+
+if (seriesContainer) {
     fetchResults(seriesTerms, seriesContainer);
+}
+
+if (suggestContainer) {
     fetchResults(suggestionTerms, suggestContainer);
+}
 
 

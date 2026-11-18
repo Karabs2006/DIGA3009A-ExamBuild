@@ -40,8 +40,6 @@ a{
 }
 
 
-
-
 #logo-img{
     width: 2.7em;
     height: 2.7em;
@@ -173,10 +171,18 @@ footer
     align-items: center;
     padding: 70px 50px 70px 50px;
     width: 100%;
-    background-color: black;
+    background-color: #0c0c0c;
     color: aliceblue;
 
 }
+
+.hero-section h1{
+        margin-top: 0%;
+        margin-right: 50%;
+        width: 6.5em;
+        background-color: #121212;
+        border-radius: 20px;
+    }
 
 .footer-btn{
     border-style: none;
@@ -206,7 +212,20 @@ footer
     fill: none;
 }
 
+
+/*Mobile screen size styling*/
 @media (max-width: 480px){
+
+   
+
+    .hero-section h1{
+        margin-top: 8%;
+        margin-right: 50%;
+        border-radius: 20px;
+    }
+
+   
+
     .nav-area{
         display: none;
     }
@@ -273,9 +292,9 @@ footer
     stroke-width: 2px;
 }
 
-    .quote-paragraph{
+.quote-paragraph{
         display: none;
-    }
+}
 
 .footer-btn{
    padding: 10px;
@@ -295,4 +314,22 @@ footer
 .socials-section img{
     margin: 5px;
 }
+}
+
+/*Tablet screen sizing*/
+
+@media only screen and (min-width: 768px) and (max-width: 1024px){
+
+.quote-paragraph{
+        width: 10em;
+}
+
+.searchbar{
+    width: 15em;
+}
+
+.hero-section{
+    height: 20em;
+}
+
 }

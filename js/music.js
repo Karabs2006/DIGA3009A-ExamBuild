@@ -102,7 +102,7 @@ const search = async(url) =>{
 
 let artistIds = [];
 
-function createCards(song, container){
+export function createCards(song, container){
 
     if (!container) return; 
     const card = document.createElement("div");
@@ -137,6 +137,7 @@ function createCards(song, container){
             //AUDIO
 
             const audio = new Audio(song.previewUrl);
+            card.audio = audio;
             
 
             //GSAP ANIMATIONS

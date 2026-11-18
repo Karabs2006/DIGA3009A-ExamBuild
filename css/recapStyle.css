@@ -6,7 +6,8 @@
 
 #recap-hero h1{
     color: rgb(255, 0, 217);
-    font-size: 100px;
+    font-size: 70px;
+    width: 5em;
 }
 
 .searchbar{
@@ -15,7 +16,20 @@
 
 @media (max-width: 480px){
     #recap-hero h1{
-    font-size: 4em;
+
+    font-size: 35px;
+    margin-right: 60%;
+    margin-top: 5%;
+    width: 4em;
 }
 
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px){
+    #recap-hero h1{
+    
+    font-size: 60px;
+    margin-right: 0%;
+    width: 4em;
+}
 }

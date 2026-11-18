@@ -59,6 +59,11 @@ export function createCard(element, container, className, enableSave = true ){
             </div>
 
         `
+        const cover = card.querySelector(".game-cover");
+
+            cover.onerror = () => {
+                cover.src = "../images/placeholder.jpg";
+            };
         container.appendChild(card);
         findText(card);
 

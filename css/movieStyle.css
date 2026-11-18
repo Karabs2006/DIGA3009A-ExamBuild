@@ -84,7 +84,7 @@
 }
 
 .extra-info{
-    width: 20em;
+    width: 30em;
     max-height: 17em;
     flex-shrink: 0;
     background-color: #FAFAFA;
@@ -121,6 +121,8 @@
         margin-left: 0px;
        
     }
+
+     
 }
 
 

@@ -1,21 +1,7 @@
-/*
-const catergoryHeaders = document.querySelectorAll(".section-head");
 
-catergoryHeaders.forEach((section) =>{
-    
-    const clearBtn = document.createElement("button");
-    clearBtn.type = "button"
-    clearBtn.textContent = "Clear"
-
-    section.appendChild(clearBtn);
-
-})
-*/
 import { createCard } from "./games.js";
-
-
-
-
+import { createCards } from "./music.js";
+import { fetchResults } from "./movies.js";
 
 // MUSIC
 const savedSongsContainer = document.querySelector(".music-container");
@@ -24,38 +10,8 @@ const savedSongs = JSON.parse(localStorage.getItem("savedSongs")) || [];
 
 savedSongs.forEach((song) => {
 
-    const card = document.createElement("div");
-
-    card.classList.add("song-card");
-
-    card.innerHTML = `
-        <img src="${song.artworkUrl100}" class="album-artwork">
-
-        <div class="song-info">
-            <h2>${song.trackCensoredName}</h2>
-            <p>${song.artistName}</p>
-            <p>${song.collectionName}</p>
-        </div>
-
-        <div class="user-buttons">
-
-            <svg xmlns="http://www.w3.org/2000/svg"
-                width="16" height="16" fill="currentColor"
-                class="bi bi-heart" viewBox="0 0 16 16">
-                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-            </svg>
-
-            <svg xmlns="http://www.w3.org/2000/svg"
-                width="16" height="16" fill="currentColor"
-                class="bi bi-plus" viewBox="0 0 16 16">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-            </svg>
-
-        </div>
-    `;
-
-    savedSongsContainer.appendChild(card);
-
+    createCards(song, savedSongsContainer);
+   
 });
 
 // MOVIES
@@ -65,30 +21,22 @@ const savedMoviesContainer = document.querySelector(".movie-container");
 const savedMovies = JSON.parse(localStorage.getItem("savedMovies")) || [];
 
 
+let movieTitles =[]; 
 savedMovies.forEach((movie)=>{
-
-        const card = document.createElement("div");
-        card.classList.add("poster");
-
-
-        card.innerHTML =
-        `
-            <img src ="${movie.Poster}">
-        `
-savedMoviesContainer.appendChild(card);
+      
+    //Get movie titles from the savedMovies localStorage array and store them into the movieTitles
+    movieTitles.push(movie.Title) 
 
 })
+
+fetchResults(movieTitles, savedMoviesContainer);
 
 // GAMES
 const gamesSection = document.querySelector("#user-games");
 
-
-
-
 const savedGamesContainer = document.querySelector(".games-container");
 
 const savedGames = JSON.parse(localStorage.getItem("savedGames")) || [];
-
 
 
 savedGames.forEach((game)=>{
@@ -124,21 +72,24 @@ const listObjs = [
         list: savedGames,
         storageKey: "savedGames",
         sectionID: "#user-games",
-        infoContainer: ".games-container"
+        infoContainer: ".games-container",
+        cardsName: ".game-card"
     },
     
     {
         list: savedMovies,
         storageKey: "savedMovies",
         sectionID: "#user-movies",
-        infoContainer: ".movie-container"
+        infoContainer: ".movie-container",
+        cardsName: ".poster"
     },
 
     {
         list: savedSongs,
         storageKey: "savedSongs",
         sectionID: "#user-music",
-        infoContainer: ".music-container"
+        infoContainer: ".music-container",
+        cardsName: ".song-card"
     },
 
 ]
@@ -154,11 +105,24 @@ listObjs.forEach((list)=>{
         info.innerHTML = `<p class = "empty-msg"><em>No Results Yet!</em></p>`
     }
 
+    const editListBtns = document.createElement("span");
+    editListBtns.classList.add("editOptionsSection");
+
+
+    const editSpan = document.createElement("span");
+    editSpan.classList.add("editBtnSpan")
+    editSpan.innerHTML = `<img src="../images/icons/edit.png">`;
+
     const clearBtn = document.createElement("button");
     clearBtn.type = "button"
     clearBtn.textContent = "Clear"
 
-    catergoryHeader.appendChild(clearBtn);
+    editListBtns.appendChild(editSpan);
+    editListBtns.appendChild(clearBtn);
+    
+
+    catergoryHeader.appendChild(editListBtns)
+    
 
     clearBtn.addEventListener("click", ()=>{
 
@@ -167,7 +131,77 @@ listObjs.forEach((list)=>{
         info.innerHTML = `<p class = "empty-msg">No Results Yet!</p>`
     })
 
+    createEdit(editSpan, info, list);
+
 })
+
+
+function createEdit(editBtn, container, listObj) {
+    let isEditing = false;
+
+    editBtn.addEventListener("click", () => {
+        const cards = container.querySelectorAll(listObj.cardsName);
+
+        if(listObj.cardsName ===".song-card"){
+            
+        }
+
+
+        if (cards.length === 0) return;
+
+        isEditing = !isEditing;
+
+        cards.forEach((card, index) => {
+
+            if (isEditing) {
+                gsap.to(card, {
+                    x: -5,
+                    y: 2,
+                    duration: 0.09,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "power2.inOut"
+                });
+
+                // Use .onclick instead of addEventListener so toggling edit mode doesn't stack duplicate events
+                card.onclick = () => {
+                    if (!isEditing) return;
+
+                    // Stop and reset audio on delete
+                    if (card.audio) {
+                        gsap.killTweensOf(card.audio);
+                        card.audio.pause();
+                        card.audio.currentTime = 0;
+                    }
+
+                    // Remove from localStorage
+                    const itemData = listObj.list[index];
+                    const currentIndex = listObj.list.indexOf(itemData);
+                    if (currentIndex > -1) {
+                        listObj.list.splice(currentIndex, 1);
+                        localStorage.setItem(listObj.storageKey, JSON.stringify(listObj.list));
+                    }
+
+                    // Stop jiggle animation and remove card from DOM
+                    gsap.killTweensOf(card);
+                    card.remove();
+
+                    // Show empty state if no cards remain
+                    if (listObj.list.length === 0) {
+                        container.innerHTML = `<p class="empty-msg"><em>No Results Yet!</em></p>`;
+                        isEditing = false;
+                    }
+                };
+
+            } else {
+                gsap.killTweensOf(card);
+                gsap.set(card, { x: 0, y: 0 });
+                card.onclick = null; // Remove delete behavior when exiting edit mode
+            }
+        });
+    });
+}
+
 
 
 
