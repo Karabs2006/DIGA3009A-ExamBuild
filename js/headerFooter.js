@@ -46,9 +46,7 @@ const socialImages = [
     {   image:"../images/instagram.png",
         url: "https://www.instagram.com/k4ybeee_/"
     },
-    {   image:"../images/xbox.png",
-        url:""
-    },
+    
     {   image:"../images/github.png",
         url:"https://github.com/Karabs2006"
     },
