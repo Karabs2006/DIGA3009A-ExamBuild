@@ -1,6 +1,9 @@
 const header = document.querySelector("header");
 const footer = document.querySelector("footer");
 const hero = document.querySelector(".hero-section");
+
+const isHomePage = !window.location.pathname.includes("/html/");
+const imagePath = isHomePage ? "./images/" : "../images/";
 gsap.registerPlugin(ScrollToPlugin)
 
 
@@ -38,21 +41,23 @@ const pages = [
 
 const socialImages = [
 
-    {   image: "../images/twitter.jpg",
+    {   image: `${imagePath}twitter.jpg`,
         url: "https://x.com/KayyDude"
 
     },
 
-    {   image:"../images/instagram.png",
+    {   image: `${imagePath}instagram.png`,
         url: "https://www.instagram.com/k4ybeee_/"
     },
     
-    {   image:"../images/github.png",
+    {   image: `${imagePath}github.png`,
         url:"https://github.com/Karabs2006"
     },
     
 
 ]
+
+
 
 header.innerHTML=
 `   
@@ -73,7 +78,7 @@ header.innerHTML=
         </div>
        
     </nav>
-    <img src="../images/logo.png" id="logo-img">
+    <img src="${imagePath}logo.png" id="logo-img">
 
     <div class="search-area">
         <form>
@@ -109,7 +114,7 @@ const burgerMenu = document.querySelector(".off-screen-menu");
 
 burgerMenu.innerHTML = 
 `   
-     <img src="../images/icons/cross.svg" class="close-menu-btn">
+     <img src="${imagePath}icons/cross.svg" class="close-menu-btn">
 `
 const closeMenuBtn = burgerMenu.querySelector(".close-menu-btn");
 
@@ -126,6 +131,7 @@ closeMenuBtn.addEventListener("click", ()=>{
 })
 
 
+
 pages.forEach((page, index) => {
     header.insertAdjacentHTML("beforeend", `
 
@@ -134,7 +140,7 @@ pages.forEach((page, index) => {
             <li class="nav-list">
 
             <span class="page-btn">
-                <a href="${window.location.pathname === '/index.html' ? page.indexPath : page.path}">${page.name}</a>
+                <a href="${isHomePage ? page.indexPath : page.path}">${page.name}</a>
             </span>
             </li>
 
@@ -156,7 +162,7 @@ pages.forEach((page, index) => {
             <li class="nav-list">
 
             <span class="page-btn">
-                <a href="${window.location.pathname === '/index.html' ? page.indexPath : page.path}">${page.name}</a>
+                <a href="${isHomePage ? page.indexPath : page.path}">${page.name}</a>
             </span>
             </li>
 
@@ -174,8 +180,8 @@ pages.forEach((page, index) => {
 
 header.insertAdjacentHTML("beforeend",
 `
-    <a href="../html/user.html">
-    <img src="../images/profile.png" id="profile-img">
+    <a href="${isHomePage ? './html/user.html' : 'user.html'}">
+    <img src="${imagePath}profile.png" id="profile-img">
     </a>
 `)
 
